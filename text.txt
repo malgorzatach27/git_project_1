@@ -1,1 +1,3 @@
-cokolwiek
+print'cokolwiek'
+print'cokolwiek w development'
+

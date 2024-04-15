@@ -1,3 +1,4 @@
 print'cokolwiek'
 print'cokolwiek w development'
 print'zmiana w development'
+print'ta linijka powinna się zmerdżować bez konfliktu'

@@ -1,2 +1,4 @@
-cokolwiek
-from master branch
+print'cokolwiek'
+print'cokolwiek w development'
+print'zmiana w development'
+

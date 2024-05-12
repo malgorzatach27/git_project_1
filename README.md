@@ -1,6 +1,6 @@
 --- PROJEKT NR.1 ---
 
-# FUNCKJONALNOŚĆ:
+## FUNCKJONALNOŚĆ:
 
 Program ten został napisany w celu transformacji współrzędnych geograficznych wedle potrzeb użytkownika. Oferuje on transformacje:
 
@@ -17,7 +17,7 @@ Obsługuje on takie elipsoidy jak:
 
 *W nawiasach znajdują się nazwy argumentów, które reprezentują ich transformacje. Należy ich użyć podczas uruchamiania programu w Wierszu poleceń.
 
-# WYMAGANIA PROGRAMU:
+## WYMAGANIA PROGRAMU:
 
 Aby program zadziałał poprawnie, urządzenie użytkownika powinno zawierać:
 
@@ -25,7 +25,7 @@ Aby program zadziałał poprawnie, urządzenie użytkownika powinno zawierać:
 - Python w wersji 3.12.3
 - Zaimportowane biblioteki numpy, math, sys
 
-# OPIS DZIAŁANIA PROGRAMU:
+## OPIS DZIAŁANIA PROGRAMU:
 
 Aby poprawnie uruchomić program należy podać argumenty reprezentujące wymagane dane odpowiednio w kolejności:
 
@@ -36,7 +36,7 @@ Aby poprawnie uruchomić program należy podać argumenty reprezentujące wymaga
 
 Przed w.w argumentami należy dopisać również "-python [nazwa programu.py]" - w przeciwnym wypadku program nie zadziała. 
  
-# PRZYKŁADOWE WYWOŁANIE PROGRAMU ZA POMOCĄ WIERSZA POLECEŃ WINDOWS:
+## PRZYKŁADOWE WYWOŁANIE PROGRAMU ZA POMOCĄ WIERSZA POLECEŃ WINDOWS:
 
 W celu poprawnego uruchomienia programu należy kolejno:
 
@@ -63,50 +63,59 @@ Wszystkie dane należy oddzielić przecinkiem.
 
 * st.d - stopnie dziesiętne
 
-# PRZYKŁADOWE TRANSFORMACJE WYKONANE PRZEZ PROGRAM:
+## PRZYKŁADOWE TRANSFORMACJE WYKONANE PRZEZ PROGRAM:
 
 1) Transformacja XYZ -> PLH (grs80)
 
+```
 Dane wejściowe (X[m], Y[m], Z[m]):
 3664840.500,1409154.690,5009572.270
 3664840.510,1409154.680,5009572.267
 3664840.520,1409154.670,5009572.267
-
+```
+```
 Dane wyjściowe (phi[st.d]*, lamda[st.d], H[m]):
 52.0979374, 21.0320720, 85.1698187
 52.0979373, 21.0320718, 85.1709807
 52.0979373, 21.0320716, 85.1745098
+```
 
 2) Transformacja XYZ -> NEU
-
+```
 Dane wejściowe (X[m], Y[m], Z[m]):
 3664940.500,1409154.690,5009571.170
 3664940.510,1409153.580,5009571.167
 3664940.520,1409153.570,5009571.167
+```
 ORAZ 
+```
 Dane wymagane do wpisania w wierszu poleceń (X0[m], Y0[m], Z0[m]):
 50.000
 60.000
 70.000
-
+```
+```
 Dane wyjściowe (easting[m], northing[m], up[m]):
 -1913367.136,5015125.842,3420468.986
 -1913367.150,5015125.839,3420468.985
 -1913367.164,5015125.839,3420468.983
+```
 
 3) Transformacja PL -> PL2000
-
+```
 Dane wejściowe (phi[st.d]*, lamda[st.d]):
 51.0879374, 20.0420720
 51.0879373, 20.0420718
 51.0879373, 20.0420716
-
+```
+```
 Dane wyjściowe (X2000[m], Y2000[m]):
 5661869.269,7432888.693
 5661869.258,7432888.679
 5661869.258,7432888.665
+```
 
-# ZNANE BŁĘDY:
+## ZNANE BŁĘDY:
 
 Program może nie zostać poprawnie uruchomiony jeśli:
  

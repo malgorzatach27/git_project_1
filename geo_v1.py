@@ -384,4 +384,11 @@ if __name__ == "__main__":
                     line = ','.join([f'{coord:11.3f}' for coord in coords_list])
                     f.writelines(line + '\n')
         else:
-            raise AttributeError("Nieprawidłowa nazwa transformacji. Wybierz: xyz2plh, plh2xyz, xyz2neu, bl2pl2000, bl2pl1992.")
+            raise AttributeError("BŁĄD: Nieprawidłowa nazwa transformacji. Wybierz: xyz2plh, plh2xyz, xyz2neu, bl2pl2000, bl2pl1992.")
+            
+    except FileNotFoundError:
+        print("BŁĄD: Nie znaleziono podanego pliku")
+    except IndexError:
+        print("BŁĄD: Dane w podanym pliku sa w nieodpowiednim formacie")
+    except ValueError:
+        print("BŁĄD: Dane w podanym pliku sa w nieodpowiednim formacie (niepoprawne wartosci)")

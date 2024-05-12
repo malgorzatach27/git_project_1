@@ -248,138 +248,140 @@ class Transformacje:
 
 
 if __name__ == "__main__":
+    try:
     
-    print(sys.argv)
+        print(sys.argv)
     
-    if len(sys.argv) < 2:
-        print("Musisz podac więcej argumentow")
-        sys.exit(1)
+        if len(sys.argv) < 2:
+            print("Musisz podac więcej argumentow")
+            sys.exit(1)
         
-    model = sys.argv[1]
-    if model not in ['wgs84', 'grs80']:
-        print("Mozesz podac tylko jedna elipsoide: 'wgs84' lub 'grs80'")
-        sys.exit(1)
-    else:
-        if model == 'wgs84':
-            print("Wybrano elipsoide WGS84")
-        elif model == 'grs80':
-            print("Wybrano elipsoide GRS80")
-            
-    geo = Transformacje(model)
-    
-    
-    if '--header_lines':
-        number_of_header_lines = int(sys.argv[4])
-    else:
-        number_of_header_lines = 0
-        
-    input_file_path = sys.argv[-1]
-    
-    if '--xyz2plh' in sys.argv and '--plh2xyz' in sys.argv[2]:
-        print('mozesz podac tylko jedna flage!')
-    
-    elif '--xyz2plh' in sys.argv:
-        with open(input_file_path, 'r') as f:
-            lines = f.readlines()
-            coords_lines = lines[number_of_header_lines:]
-        
-            coords_plh = []
-            for coord_line in coords_lines:
-                coord_line = coord_line.strip('\n')
-                x_str,y_str,z_str = coord_line.split(',')
-                x, y, z = (float(x_str), float(y_str), float(z_str))
-                phi,lam,h = geo.xyz2plh(x, y, z)
-                coords_plh.append([phi, lam, h])
-                
-        
-        with open('result_xyz2plh.txt', 'w') as f:
-            f.write('phi[deg], lam[deg], h[m]\n')
-            for coords_list in coords_plh:
-                line = ','.join([f'{coord:11.7f}' for coord in coords_list])
-                f.writelines(line + '\n')
-                
-    elif '--plh2xyz' in sys.argv:
-        with open(input_file_path, 'r') as f:
-            lines = f.readlines()
-            coords_lines = lines[number_of_header_lines:]
-            
-            coords_xyz = []
-            for coord_line in coords_lines:
-                coord_line = coord_line.strip('\n')
-                phi_str, lam_str, h_str = coord_line.split(',')
-                phi, lam, h = (float(phi_str), float(lam_str), float(h_str))
-                x, y, z = geo.plh2xyz(phi, lam, h)
-                coords_xyz.append([x, y, z])
-                
-        with open('result_plh2xyz.txt', 'w') as f:
-            f.write('x[m], y[m], z[m]\n')
-            for coords_list in coords_xyz:
-                line = ','.join([str(coord) for coord in coords_list])
-                f.writelines(line + '\n')
-                
-    
-    elif '--xyz2neu' in sys.argv:
-        if len(sys.argv) < 6:
-            print("Nalezy podac wspolrzedne x0, y0, z0.")
+        model = sys.argv[1]
+        if model not in ['wgs84', 'grs80']:
+            print("Mozesz podac tylko jedna elipsoide: 'wgs84' lub 'grs80'")
             sys.exit(1)
         else:
-            x0 = float(input("Podaj wspolrzedna x0: "))
-            y0 = float(input("Podaj wspolrzedna y0: "))
-            z0 = float(input("Podaj wspolrzedna z0: "))
+            if model == 'wgs84':
+                print("Wybrano elipsoide WGS84")
+            elif model == 'grs80':
+                print("Wybrano elipsoide GRS80")
             
-        with open(input_file_path, 'r') as f:
-            lines = f.readlines()
-            coords_lines = lines[number_of_header_lines:]
-              
-            coords_neu = []
-            for coord_line in coords_lines:
-                coord_line = coord_line.strip('\n')
-                x, y, z = coord_line.split(',')
-                x, y, z = float(x), float(y), float(z)
-                n, e, u = geo.xyz2neu(x, y, z, x0, y0, z0)
-                coords_neu.append([n, e, u])
+        geo = Transformacje(model)
+        
+        
+        if '--header_lines':
+            number_of_header_lines = int(sys.argv[4])
+        else:
+            number_of_header_lines = 0
+            
+        input_file_path = sys.argv[-1]
+        
+        if '--xyz2plh' in sys.argv and '--plh2xyz' in sys.argv[2]:
+            print('mozesz podac tylko jedna flage!')
+        
+        elif '--xyz2plh' in sys.argv:
+            with open(input_file_path, 'r') as f:
+                lines = f.readlines()
+                coords_lines = lines[number_of_header_lines:]
+            
+                coords_plh = []
+                for coord_line in coords_lines:
+                    coord_line = coord_line.strip('\n')
+                    x_str,y_str,z_str = coord_line.split(',')
+                    x, y, z = (float(x_str), float(y_str), float(z_str))
+                    phi,lam,h = geo.xyz2plh(x, y, z)
+                    coords_plh.append([phi, lam, h])
+                    
+            
+            with open('result_xyz2plh.txt', 'w') as f:
+                f.write('phi[deg], lam[deg], h[m]\n')
+                for coords_list in coords_plh:
+                    line = ','.join([f'{coord:11.7f}' for coord in coords_list])
+                    f.writelines(line + '\n')
+                    
+        elif '--plh2xyz' in sys.argv:
+            with open(input_file_path, 'r') as f:
+                lines = f.readlines()
+                coords_lines = lines[number_of_header_lines:]
+                
+                coords_xyz = []
+                for coord_line in coords_lines:
+                    coord_line = coord_line.strip('\n')
+                    phi_str, lam_str, h_str = coord_line.split(',')
+                    phi, lam, h = (float(phi_str), float(lam_str), float(h_str))
+                    x, y, z = geo.plh2xyz(phi, lam, h)
+                    coords_xyz.append([x, y, z])
+                    
+            with open('result_plh2xyz.txt', 'w') as f:
+                f.write('x[m], y[m], z[m]\n')
+                for coords_list in coords_xyz:
+                    line = ','.join([str(coord) for coord in coords_list])
+                    f.writelines(line + '\n')
+                    
+        
+        elif '--xyz2neu' in sys.argv:
+            if len(sys.argv) < 6:
+                print("Nalezy podac wspolrzedne x0, y0, z0.")
+                sys.exit(1)
+            else:
+                x0 = float(input("Podaj wspolrzedna x0: "))
+                y0 = float(input("Podaj wspolrzedna y0: "))
+                z0 = float(input("Podaj wspolrzedna z0: "))
+                
+            with open(input_file_path, 'r') as f:
+                lines = f.readlines()
+                coords_lines = lines[number_of_header_lines:]
                   
-        with open('result_xyz2neu.txt', 'w') as f:
-            f.write('easting[m], northing[m], up[m]\n')
-            for coords_list in coords_neu:
-                line = ','.join([f'{coord:11.3f}' for coord in coords_list])
-                f.writelines(line + '\n')
-                 
-    elif '--bl2pl2000' in sys.argv:
-        with open(input_file_path, 'r') as f:
-            lines = f.readlines()
-            coords_lines = lines[number_of_header_lines:]
-            
-            coords_pl2000 = []
-            for coord_line in coords_lines:
-                coord_line = coord_line.strip('\n')
-                phi_str, lam_str = coord_line.split(',')
-                phi, lam = (float(phi_str), float(lam_str))
-                x2000, y2000 = geo.bl2pl2000(phi, lam)
-                coords_pl2000.append([x2000, y2000])
+                coords_neu = []
+                for coord_line in coords_lines:
+                    coord_line = coord_line.strip('\n')
+                    x, y, z = coord_line.split(',')
+                    x, y, z = float(x), float(y), float(z)
+                    n, e, u = geo.xyz2neu(x, y, z, x0, y0, z0)
+                    coords_neu.append([n, e, u])
+                      
+            with open('result_xyz2neu.txt', 'w') as f:
+                f.write('easting[m], northing[m], up[m]\n')
+                for coords_list in coords_neu:
+                    line = ','.join([f'{coord:11.3f}' for coord in coords_list])
+                    f.writelines(line + '\n')
+                     
+        elif '--bl2pl2000' in sys.argv:
+            with open(input_file_path, 'r') as f:
+                lines = f.readlines()
+                coords_lines = lines[number_of_header_lines:]
                 
-        with open('result_bl2pl2000.txt', 'w') as f:
-            f.write('x2000[m], y2000[m]\n')
-            for coords_list in coords_pl2000:
-                line = ','.join([f'{coord:11.3f}' for coord in coords_list])
-                f.writelines(line + '\n')
+                coords_pl2000 = []
+                for coord_line in coords_lines:
+                    coord_line = coord_line.strip('\n')
+                    phi_str, lam_str = coord_line.split(',')
+                    phi, lam = (float(phi_str), float(lam_str))
+                    x2000, y2000 = geo.bl2pl2000(phi, lam)
+                    coords_pl2000.append([x2000, y2000])
+                    
+            with open('result_bl2pl2000.txt', 'w') as f:
+                f.write('x2000[m], y2000[m]\n')
+                for coords_list in coords_pl2000:
+                    line = ','.join([f'{coord:11.3f}' for coord in coords_list])
+                    f.writelines(line + '\n')
+                    
+        elif '--bl2pl1992' in sys.argv:
+            with open(input_file_path, 'r') as f:
+                lines = f.readlines()
+                coords_lines = lines[number_of_header_lines:]
                 
-    elif '--bl2pl1992' in sys.argv:
-        with open(input_file_path, 'r') as f:
-            lines = f.readlines()
-            coords_lines = lines[number_of_header_lines:]
-            
-            coords_pl1992 = []
-            for coord_line in coords_lines:
-                coord_line = coord_line.strip('\n')
-                phi_str, lam_str = coord_line.split(',')
-                phi, lam = (float(phi_str), float(lam_str))
-                x1992, y1992 = geo.bl2pl1992(phi, lam)
-                coords_pl1992.append([x1992, y1992])
-                
-        with open('result_bl2pl1992.txt', 'w') as f:
-            f.write('x1992[m], y1992[m]\n')
-            for coords_list in coords_pl1992:
-                line = ','.join([f'{coord:11.3f}' for coord in coords_list])
-                f.writelines(line + '\n')
-                
+                coords_pl1992 = []
+                for coord_line in coords_lines:
+                    coord_line = coord_line.strip('\n')
+                    phi_str, lam_str = coord_line.split(',')
+                    phi, lam = (float(phi_str), float(lam_str))
+                    x1992, y1992 = geo.bl2pl1992(phi, lam)
+                    coords_pl1992.append([x1992, y1992])
+                    
+            with open('result_bl2pl1992.txt', 'w') as f:
+                f.write('x1992[m], y1992[m]\n')
+                for coords_list in coords_pl1992:
+                    line = ','.join([f'{coord:11.3f}' for coord in coords_list])
+                    f.writelines(line + '\n')
+        else:
+            raise AttributeError("Nieprawidłowa nazwa transformacji. Wybierz: xyz2plh, plh2xyz, xyz2neu, bl2pl2000, bl2pl1992.")

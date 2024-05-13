@@ -1,6 +1,6 @@
 --- PROJEKT NR.1 ---
 
-## FUNCKJONALNOŚĆ:
+## FUNKCJONALNOŚĆ:
 
 Program ten został napisany w celu transformacji współrzędnych geograficznych wedle potrzeb użytkownika. Oferuje on transformacje:
 
@@ -14,6 +14,7 @@ Obsługuje on takie elipsoidy jak:
 
 - GRS80 (grs80)
 - WGS84 (wgs84)
+- Elipsoida Krasowskiego (krasowski)
 
 *W nawiasach znajdują się nazwy argumentów, które reprezentują ich transformacje. Należy ich użyć podczas uruchamiania programu w Wierszu poleceń.
 
@@ -29,12 +30,12 @@ Aby program zadziałał poprawnie, urządzenie użytkownika powinno zawierać:
 
 Aby poprawnie uruchomić program należy podać argumenty reprezentujące wymagane dane odpowiednio w kolejności:
 
-- model wybranej elipsoidy (grs80/wgs84), na której chcemy dokonać transformacji
+- model wybranej elipsoidy (grs80/wgs84/krasowski), na której chcemy dokonać transformacji
 - rodzaj transformacji (np. --xyz2plh), którą chcemy wykonać
 - ilość nagłówków do pominięcia (--header_lines [podaj liczbę]), jeżeli w pliku z danymi wejściowymi znajdują się nagłówki niezawierające interesujących nas współrzędnych
 - nazwa pliku z jego rozszerzeniem (lub ścieżka), zawierający współrzędne wejściowe (np. wspolrzedne.txt)
 
-Przed w.w argumentami należy dopisać również "-python [nazwa programu.py]" - w przeciwnym wypadku program nie zadziała. 
+Przed w.w argumentami należy dopisać również "-python geo_v1.py" - w przeciwnym wypadku program nie zadziała. 
  
 ## PRZYKŁADOWE WYWOŁANIE PROGRAMU ZA POMOCĄ WIERSZA POLECEŃ WINDOWS:
 
@@ -45,7 +46,7 @@ W celu poprawnego uruchomienia programu należy kolejno:
 3) Przejść do tego folderu za pomocą komendy "cd [ścieżka do folderu]" w Wierszu poleceń
 4) Uruchomić program poprzez wpisanie odpowiednich argumentów np.
 
--python geo_v1.py grs80 --xyz2plh --header_lines 4 wspolrzedne.txt
+python geo_v1.py grs80 --xyz2plh --header_lines 4 wspolrzedne.txt
 
 Jeżeli wszystkie dane i argumenty zostały podane prawidłowo to w folderze z plikiem wejściowym utworzy się nowy plik tekstowy o nazwie "result_[rodzaj transformacji]".
 W pliku tym znajdziemy przetransformowane przez program współrzędne.
@@ -119,6 +120,7 @@ Dane wyjściowe (X2000[m], Y2000[m]):
 
 Program może nie zostać poprawnie uruchomiony jeśli:
  
-- Współrzędne w pliku wejściowym zostały oddzielone za pomocą czegoś innego niż przecinka
+- Współrzędne w pliku wejściowym zostały oddzielone za pomocą czegoś innego niż przecinek
 - Została podana błędna ilość nagłówków do pominięcia z użyciem argumentu --header_lines
 - Współrzędne zostały podane w nieodpowiedniej kolejności
+  

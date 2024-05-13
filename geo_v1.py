@@ -2,10 +2,10 @@ from math import sin, cos, sqrt, tan, atan, atan2, degrees, radians
 import sys
 import numpy as np
 
-o = object()
+#o = object()
 
 class Transformacje:
-    def __init__(self, model: str = "wgs84"):
+    def __init__(self, model):
         """
         Parametry elipsoid:
             a - duża półoś elipsoidy - promień równikowy
@@ -15,6 +15,7 @@ class Transformacje:
         Modele:
         + WGS84
         + GRS80
+        + Elipsoida Krasowskiego
         """
         if model == "wgs84":
             self.a = 6378137.0 
@@ -22,6 +23,9 @@ class Transformacje:
         elif model == "grs80":
             self.a = 6378137.0
             self.b = 6356752.31414036
+        elif model == "krasowski":
+            self.a = 6378245.0
+            self.b = 6356863.019
         else:
             raise NotImplementedError(f"{model} model nie jest implementowany")
         self.flat = (self.a - self.b) / self.a
@@ -56,7 +60,7 @@ class Transformacje:
         """
         Algorytm Hirvonena - algorytm transformacji współrzędnych ortokartezjańskich (x, y, z)
         na współrzędne geodezyjne długość szerokość i wysokośc elipsoidalna (phi, lam, h). Jest to proces iteracyjny. 
-        W wyniku 3-4-krotneej iteracji wyznaczenia wsp. phi można przeliczyć współrzędne z dokładnoscią ok 1 cm.  
+        W wyniku 3-4-krotnej iteracji wyznaczenia wsp. phi można przeliczyć współrzędne z dokładnoscią ok 1 cm.  
         
         Parameters
         ----------
@@ -251,20 +255,22 @@ if __name__ == "__main__":
     try:
     
         print(sys.argv)
-    
+
         if len(sys.argv) < 2:
             print("Musisz podac więcej argumentow")
             sys.exit(1)
         
         model = sys.argv[1]
-        if model not in ['wgs84', 'grs80']:
-            print("Mozesz podac tylko jedna elipsoide: 'wgs84' lub 'grs80'")
+        if model not in ['wgs84', 'grs80', 'krasowski']:
+            print("Nieobslugiwany model elipsoidy. Wybierz sposrod podanych: 'wgs84' ; 'grs80' ; 'krasowski'")
             sys.exit(1)
         else:
             if model == 'wgs84':
                 print("Wybrano elipsoide WGS84")
             elif model == 'grs80':
                 print("Wybrano elipsoide GRS80")
+            elif model == 'krasowski':
+                print("Wybrano elipsoide Krasowskiego")
             
         geo = Transformacje(model)
         
@@ -386,6 +392,7 @@ if __name__ == "__main__":
         else:
             raise AttributeError("BŁĄD: Nieprawidłowa nazwa transformacji. Wybierz: xyz2plh, plh2xyz, xyz2neu, bl2pl2000, bl2pl1992.")
             
+        
     except FileNotFoundError:
         print("BŁĄD: Nie znaleziono podanego pliku")
     except IndexError:

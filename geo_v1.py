@@ -257,7 +257,7 @@ if __name__ == "__main__":
         print(sys.argv)
 
         if len(sys.argv) < 2:
-            print("Musisz podac więcej argumentow")
+            print("Musisz podac wiecej argumentow. \nWzor komendy (zmien w []): \npython geo_v1.py [nazwa elipsoidy] [--transformacja] --header_lines [liczba linijek zawierajacacych naglowek] [plik wejsciowy]. \n\nPrzykladowe komendy przy uzyciu pliku geo_v1.py: \n python geo_v1.py wgs84 --bl2pl1992 --header_lines 4 bl_example.txt \n python geo_v1.py krasowski --xyz2plh --header_lines 3 xyz_example.txt \n python geo_v1.py grs80 --xyz2neu --header_lines 4 xyz_example.tx")
             sys.exit(1)
         
         model = sys.argv[1]
@@ -391,7 +391,8 @@ if __name__ == "__main__":
                     f.writelines(line + '\n')
         else:
             raise AttributeError("BŁĄD: Nieprawidłowa nazwa transformacji. Wybierz: xyz2plh, plh2xyz, xyz2neu, bl2pl2000, bl2pl1992.")
-            
+        
+        print('SUKCES: Wyniki transformacji znajduja sie w nowym pliku tekstowym "result_[rodzaj transformacji]", w tym samym folderze co plik wejsciowy :)')
         
     except FileNotFoundError:
         print("BŁĄD: Nie znaleziono podanego pliku")

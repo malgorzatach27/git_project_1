@@ -49,6 +49,13 @@ W celu poprawnego uruchomienia programu należy kolejno:
 
 python geo_v1.py grs80 --xyz2plh --header_lines 4 wspolrzedne.txt
 
+Jeżeli użytkownik wybierze flagę --xyz2neu wyświetlą mu się kolejno komunikaty:
+- "Podaj wspolrzedna x0:"
+- "Podaj wspolrzedna y0:"
+- "Podaj wspolrzedna z0:"
+  
+Po ':' należy wpisać po jednej współrzędnej środka układu neu do którego użytkownik transformuje. Wymagany separator dziesiętny w podawanych współrzędnych to kropka. Przykład takiej transformacji znajduje się w dalszej części dokumentacji.
+
 Jeżeli wszystkie dane i argumenty zostały podane prawidłowo to w folderze z plikiem wejściowym utworzy się nowy plik tekstowy o nazwie "result_[rodzaj transformacji]".
 W pliku tym znajdziemy przetransformowane przez program współrzędne.
 
@@ -124,4 +131,9 @@ Program może nie zostać poprawnie uruchomiony jeśli:
 - Współrzędne w pliku wejściowym zostały oddzielone za pomocą czegoś innego niż przecinek
 - Została podana błędna ilość nagłówków do pominięcia z użyciem argumentu --header_lines
 - Współrzędne zostały podane w nieodpowiedniej kolejności
+
+- Program nie implementuje poprawnej transformacji z BLkras na 1992/2000. 
+Po skorzystaniu z dostępnej opcji wybrania elipsoidy Krasowskiego oraz takiej transformacji użytkownik uzyskuje rozbieżności z poprawnymi wynikami.
+
+
   
